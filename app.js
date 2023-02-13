@@ -1,5 +1,6 @@
 const fs = require("fs");
 const express = require("express");
+const cors = require("cors");
 
 //Add some data to a file
 const heroData = {
@@ -28,12 +29,13 @@ fs.writeFile("heros.json", JSON.stringify(heroData), (err) => {
 
 const server = express();
 server.use(express.json());
+server.use(cors());
 
 server.get("/", (req, res) => {
     console.log("Attempting to handle the home GET endpoint");
-    res.write("<h1>Home: Hunter's Pad</h1>");
+    //res.write();
     res.status(200);
-    res.end();
+    res.end("<h1>Home: Hunter's Pad</h1>");
 });
 
 server.get("/heros", (req, res) => {
@@ -77,7 +79,6 @@ server.post("/heros", (req, res) => {
     });
     //Send back whether or not the file was written successfully
     
-
 });
 
 server.post("/echo", (req, res) => {
